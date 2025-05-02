@@ -25,8 +25,6 @@ import { MatIconModule } from '@angular/material/icon';
 
 export class AdminComponent {
 
-
-
   displayedColumns: string[] = ['id', 'name', 'last_name', 'user_name', 'actions'];
   dataSource = new MatTableDataSource<User>();
 

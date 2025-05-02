@@ -2,6 +2,7 @@ import { Routes } from "@angular/router";
 import { AdminComponent } from "./admin/admin.component";
 import { authGuard } from "core/guards/auth.guard";
 import { MainAdminComponent } from "./main-admin/main-admin.component";
+import { SurveysComponent } from "./surveys/surveys.component";
 
 
 export const USER_ROUTES: Routes = [
@@ -10,7 +11,8 @@ export const USER_ROUTES: Routes = [
     component: MainAdminComponent,
     canActivate: [authGuard],
     children: [
-      { path: 'config-admin', component: AdminComponent },
+      { path: 'config-admins', component: AdminComponent },
+      { path: 'config-surveys', component: SurveysComponent },
     ]
   }
 ]
