@@ -37,7 +37,5 @@ export const authInterceptor: HttpInterceptorFn = (req, next) => {
 
 function handleUnauthorized(authService: JwtService, router: Router): void {
   authService.removeToken();
-  router.navigate([''], {
-    queryParams: { returnUrl: router.url }
-  });
+  router.navigate(['']);
 }

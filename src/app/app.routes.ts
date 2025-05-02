@@ -7,6 +7,10 @@ export const routes: Routes = [
     loadChildren: () => import('../views/module-auth/panel-auth.router').then(m => m.USER_ROUTES)
   },
   {
+    path: 'admin',
+    loadChildren: () => import('../views/module-admin/panel-admin.router').then(m => m.USER_ROUTES)
+  },
+  {
     path: '404', component: NotFountPageComponent
   },
   {

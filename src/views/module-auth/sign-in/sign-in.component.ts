@@ -11,6 +11,7 @@ import { MyErrorStateMatcher } from 'core/helpers/my-error-state-matcher';
 import { AuthService } from 'core/services/auth.service';
 import { SignIn } from 'core/models/auth.model';
 import { BrowserStorageService } from 'core/services/browser-storage.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-sign-in',
@@ -36,7 +37,9 @@ export class SignInComponent {
 
   form: FormGroup = new FormGroup({});
   submitted: boolean = false;
-  matcher: any = new MyErrorStateMatcher
+  matcher: any = new MyErrorStateMatcher;
+  router = inject(Router);
+
 
   private storageService = inject(BrowserStorageService);
 
@@ -60,9 +63,10 @@ export class SignInComponent {
     this._authService.sigUp(formData).subscribe({
       next: response => {
        this.storageService.set('token', response.token)
+       this.router.navigate(['/admin'])
       },
       error: error => {
-        console.log(error)
+        console.log("NO se pudo inciar sesion", error)
       }
     })
   }

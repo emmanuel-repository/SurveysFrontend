@@ -1,4 +1,4 @@
-import { inject, Injectable } from '@angular/core';
+import { Inject, inject, Injectable, PLATFORM_ID } from '@angular/core';
 import { BrowserStorageService } from './browser-storage.service';
 import { Router } from '@angular/router';
 import { jwtDecode } from 'jwt-decode';
@@ -8,7 +8,6 @@ import { jwtDecode } from 'jwt-decode';
 })
 export class JwtService {
 
-  constructor() { }
 
   private storageService = inject(BrowserStorageService);
   private router = inject(Router);
