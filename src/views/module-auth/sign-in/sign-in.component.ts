@@ -10,8 +10,8 @@ import { CommonModule } from '@angular/common';
 import { MyErrorStateMatcher } from 'core/helpers/my-error-state-matcher';
 import { AuthService } from 'core/services/auth.service';
 import { SignIn } from 'core/models/auth.model';
-import { BrowserStorageService } from 'core/services/browser-storage.service';
 import { Router } from '@angular/router';
+import { JwtService } from 'core/services/jwt.service';
 
 @Component({
   selector: 'app-sign-in',
@@ -42,7 +42,7 @@ export class SignInComponent {
   router = inject(Router);
   isValidetSession: boolean = true;
 
-  private storageService = inject(BrowserStorageService);
+  private jwtService = inject(JwtService);
 
   constructor(private _formBuild: FormBuilder, private _authService: AuthService ) {}
 
@@ -63,8 +63,11 @@ export class SignInComponent {
 
     this._authService.signIn(formData).subscribe({
       next: response => {
-       this.storageService.set('token', response.token)
-       this.router.navigate(['/admin/config-admins'])
+       this.jwtService.setToken(response.token);
+
+       const userRole = this.jwtService.getUserRole();
+
+       this.router.navigate([userRole == "ADMIN" ? '/admin/config-admins' : '/user/answered'])
       },
       error: error => {
         console.log("NO se pudo inciar sesion", error)

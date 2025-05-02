@@ -48,4 +48,28 @@ export class JwtService {
     return !!token && !this.isTokenExpired();
   }
 
+  // Obtener el rol del usuario desde el token
+  getUserRole(): string | null {
+    const token = this.getToken();
+    if (!token) return null;
+
+    try {
+      const decoded: any = jwtDecode(token);
+      console.log(decoded.RoleUser)
+      return decoded.RoleUser; // Asume que el token JWT tiene un campo 'role'
+    } catch (error) {
+      return null;
+    }
+  }
+
+  // Verificar si el usuario es admin
+  isAdmin(): boolean {
+    return this.getUserRole() === 'ADMIN';
+  }
+
+  // Verificar si el usuario es user
+  isUser(): boolean {
+    return this.getUserRole() === 'USER';
+  }
+
 }
