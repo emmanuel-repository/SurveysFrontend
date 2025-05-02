@@ -8,6 +8,7 @@ import { SurveysDialogComponent } from './surveys-dialog/surveys-dialog.componen
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-surveys',
@@ -20,6 +21,7 @@ import { MatIconModule } from '@angular/material/icon';
     MatPaginatorModule,
     MatButtonModule,
     MatIconModule,
+    RouterModule
   ],
 })
 
