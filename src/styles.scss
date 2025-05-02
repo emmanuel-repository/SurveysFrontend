@@ -123,11 +123,11 @@ body {
   .container {
     all: unset;
     /* Resetea todos los estilos heredados, si es necesario */
-    background-color: var(--theme-bg);
+    background-color: white;
     max-width: 1900px !important;
     max-height: 900px;
     height: 95vh;
-    display: flex;
+    // display: flex;
     overflow: hidden;
     width: 100%;
     border-radius: 20px;
@@ -1320,4 +1320,13 @@ body {
 
   .text-title {
     text-align: center;
+  }
+
+  .form-container {
+    width: 100%;
+    // max-width: 400px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    padding: 40px;
   }
