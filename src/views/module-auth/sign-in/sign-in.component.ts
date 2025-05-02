@@ -29,7 +29,8 @@ import { Router } from '@angular/router';
     MatCardModule,
     MatButtonModule,
     MatDividerModule,
-    MatIconModule
+    MatIconModule,
+    MatCardModule
   ],
 })
 
@@ -39,7 +40,7 @@ export class SignInComponent {
   submitted: boolean = false;
   matcher: any = new MyErrorStateMatcher;
   router = inject(Router);
-
+  isValidetSession: boolean = true;
 
   private storageService = inject(BrowserStorageService);
 
@@ -67,6 +68,7 @@ export class SignInComponent {
       },
       error: error => {
         console.log("NO se pudo inciar sesion", error)
+        this.isValidetSession = false;
       }
     })
   }
