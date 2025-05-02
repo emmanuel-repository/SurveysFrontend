@@ -15,7 +15,7 @@ export class AdminService {
 
   constructor(private http: HttpClient) { }
 
-  getFormValidateNewAdmin(data: User) {
+  getFormValidateAdmin(data: User) {
     return {
       name: ['', Validators.required],
       lastName: ['', Validators.required],
@@ -23,7 +23,6 @@ export class AdminService {
       password: ['', !data ? Validators.required : null]
     }
   }
-
 
   getAllAdmins(): Observable<User[]> {
     return this.http.get<User[]>(this.apiUrl);

@@ -33,7 +33,7 @@ export class AdminDialogComponent {
   isEditMode: boolean = false;
 
   constructor(private fb: FormBuilder, private adminService: AdminService, private dialogRef: MatDialogRef<AdminDialogComponent>, @Inject(MAT_DIALOG_DATA) public data: User) {
-    this.form = this.fb.group(this.adminService.getFormValidateNewAdmin(data));
+    this.form = this.fb.group(this.adminService.getFormValidateAdmin(data));
   }
 
   ngOnInit(): void {
@@ -41,8 +41,11 @@ export class AdminDialogComponent {
   }
 
   onSubmit(): void {
-    if (!this.isEditMode) this.save()
-    else this.edit()
+
+    if (!this.form.valid) return;
+
+    if (!this.isEditMode) this.save();
+    else this.edit();
   }
 
   onCancel(): void {

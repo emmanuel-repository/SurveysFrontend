@@ -64,7 +64,7 @@ export class SignInComponent {
     this._authService.signIn(formData).subscribe({
       next: response => {
        this.storageService.set('token', response.token)
-       this.router.navigate(['/admin/config-admin'])
+       this.router.navigate(['/admin/config-admins'])
       },
       error: error => {
         console.log("NO se pudo inciar sesion", error)
