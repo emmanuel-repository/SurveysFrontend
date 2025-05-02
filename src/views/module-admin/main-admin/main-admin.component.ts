@@ -3,6 +3,7 @@ import { RouterOutlet } from '@angular/router';
 
 @Component({
   selector: 'app-main-admin',
+  standalone: true,
   templateUrl: './main-admin.component.html',
   styleUrl: './main-admin.component.scss',
   imports: [RouterOutlet],

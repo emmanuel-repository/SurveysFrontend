@@ -2,9 +2,10 @@ import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-not-fount-page',
-  imports: [],
+  standalone: true,
   templateUrl: './not-fount-page.component.html',
-  styleUrl: './not-fount-page.component.scss'
+  styleUrl: './not-fount-page.component.scss',
+  imports: [],
 })
 export class NotFountPageComponent {
 

@@ -12,6 +12,7 @@ import { QuestionDialogComponent } from './question-dialog/question-dialog.compo
 
 @Component({
   selector: 'app-question',
+  standalone: true,
   templateUrl: './question.component.html',
   styleUrl: './question.component.scss',
   imports: [

@@ -55,7 +55,6 @@ export class JwtService {
 
     try {
       const decoded: any = jwtDecode(token);
-      console.log(decoded.RoleUser)
       return decoded.RoleUser; // Asume que el token JWT tiene un campo 'role'
     } catch (error) {
       return null;

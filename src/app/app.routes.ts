@@ -12,7 +12,7 @@ export const routes: Routes = [
   },
   {
     path: 'user',
-    loadChildren: () => import('../views/module-user/panel-admin.router').then(m => m.USER_ROUTES)
+    loadChildren: () => import('../views/module-user/panel-user.router').then(m => m.USER_ROUTES)
   },
   {
     path: '404', component: NotFountPageComponent

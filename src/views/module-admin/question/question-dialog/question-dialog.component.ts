@@ -12,6 +12,7 @@ import { QuestionService } from 'core/services/question.service';
 
 @Component({
   selector: 'app-question-dialog',
+  standalone: true,
   templateUrl: './question-dialog.component.html',
   styleUrl: './question-dialog.component.scss',
   imports: [
