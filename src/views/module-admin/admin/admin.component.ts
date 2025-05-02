@@ -4,40 +4,46 @@ import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { User } from 'core/models/user.model';
 import { AdminService } from 'core/services/admin.service';
-import { MAT_DIALOG_DATA, MatDialog, MatDialogActions, MatDialogClose, MatDialogContent, MatDialogRef, MatDialogTitle, } from '@angular/material/dialog';
+import { MatDialog } from '@angular/material/dialog';
+import { AdminDialogComponent } from './admin-dialog/admin-dialog.component';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
 
 @Component({
   selector: 'app-admin',
+  standalone: true,
   templateUrl: './admin.component.html',
   styleUrl: './admin.component.scss',
   imports: [
     MatGridListModule,
     MatTableModule,
-    MatPaginatorModule
+    MatPaginatorModule,
+    MatButtonModule,
+    MatIconModule,
   ],
 })
 
 export class AdminComponent {
 
-  @ViewChild(MatPaginator) paginator!: MatPaginator;
+
 
   displayedColumns: string[] = ['id', 'name', 'last_name', 'user_name', 'actions'];
   dataSource = new MatTableDataSource<User>();
-  adminList: User[] = []
 
   constructor(private adminService: AdminService, private dialog: MatDialog) { }
 
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
+
   ngOnInit(): void {
-    this.loadAdmins();
+    this.getAdmins();
   }
 
-  loadAdmins(): void {
-
-    console.log('Esta es una prueba de carga')
+  getAdmins(): void {
     this.adminService.getAllAdmins().subscribe({
 
       next: (admins) => {
         this.dataSource.data = admins;
+        this.dataSource.paginator = this.paginator;
       },
 
       error: (err) => {
@@ -47,23 +53,23 @@ export class AdminComponent {
   }
 
   openDialog(admin?: User): void {
-    // const dialogRef = this.dialog.open(AdminDialogComponent, {
-    //   width: '450px',
-    //   data: admin ? { ...admin } : null
-    // });
+    const dialogRef = this.dialog.open(AdminDialogComponent, {
+      width: '500px',
+      data: admin ? { ...admin } : null
+    });
 
-    // dialogRef.afterClosed().subscribe(result => {
-    //   if (result) {
-    //     this.loadAdmins();
-    //   }
-    // });
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.getAdmins();
+      }
+    });
   }
 
   deleteAdmin(id: number): void {
     if (confirm('¿Estás seguro de eliminar este administrador?')) {
       this.adminService.deleteAdmin(id).subscribe({
         next: () => {
-          this.loadAdmins();
+          this.getAdmins();
         },
         error: (err) => {
           console.error('Error deleting admin:', err);

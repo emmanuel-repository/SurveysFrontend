@@ -1,1 +1,39 @@
-<p>admin-dialog works!</p>
+<h2 mat-dialog-title>{{ isEditMode ? 'Editar Administrador' : 'Nuevo Administrador' }}</h2>
+
+<mat-dialog-content>
+  <form class="form-container" [formGroup]="form">
+    <mat-form-field appearance="fill" class="full-width">
+      <mat-label>Nombre</mat-label>
+      <input matInput formControlName="name" required>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" class="full-width">
+      <mat-label>Apellido</mat-label>
+      <input matInput formControlName="lastName" required>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" class="full-width">
+      <mat-label>Nombre de Usuario</mat-label>
+      <input matInput formControlName="userName" type="email" required>
+    </mat-form-field>
+
+    @if (!isEditMode) {
+      <mat-form-field appearance="fill" class="full-width">
+        <mat-label>Contraseña</mat-label>
+        <input matInput type="password" formControlName="password" required>
+      </mat-form-field>
+    }
+
+
+  </form>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+
+  <button mat-button (click)="onCancel()">Cancelar</button>
+
+  <button mat-raised-button color="primary" (click)="onSubmit()" [disabled]="!form.valid">
+    {{ isEditMode ? 'Actualizar' : 'Crear' }}
+  </button>
+
+</mat-dialog-actions>

@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { environment } from '../../environments/environment';
 import { User } from 'core/models/user.model';
 import { AdminCreateRequest, AdminUpdateRequest } from 'core/models/admin.model';
+import { Validators } from '@angular/forms';
 
 @Injectable({
   providedIn: 'root'
@@ -13,6 +14,15 @@ export class AdminService {
   private apiUrl = `${environment.apiUrl}/api/admin`;
 
   constructor(private http: HttpClient) { }
+
+  getFormValidateNewAdmin(data: User) {
+    return {
+      name: ['', Validators.required],
+      lastName: ['', Validators.required],
+      userName: ['', Validators.required],
+      password: ['', !data ? Validators.required : null]
+    }
+  }
 
 
   getAllAdmins(): Observable<User[]> {

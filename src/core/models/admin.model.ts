@@ -6,7 +6,9 @@ export interface AdminCreateRequest {
 }
 
 export interface AdminUpdateRequest {
+  id: number,
   name: string;
   lastName: string;
   userName: string;
+  password: string;
 }
