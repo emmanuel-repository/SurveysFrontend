@@ -6,6 +6,7 @@ import { Component } from '@angular/core';
   templateUrl: './answered.component.html',
   styleUrl: './answered.component.scss'
 })
+
 export class AnsweredComponent {
 
 }

@@ -67,7 +67,7 @@ export class SignInComponent {
 
        const userRole = this.jwtService.getUserRole();
 
-       this.router.navigate([userRole == "ADMIN" ? '/admin/config-admins' : '/user/answered'])
+       this.router.navigate([userRole == "ADMIN" ? '/admin/config-admins' : '/user/answered-list'])
       },
       error: error => {
         console.log("NO se pudo inciar sesion", error)
