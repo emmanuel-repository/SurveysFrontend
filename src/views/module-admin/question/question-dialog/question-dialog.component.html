@@ -1,0 +1,62 @@
+<h2 mat-dialog-title>{{ isEditMode ? 'Editar Pregunta' : 'Nueva Pregunta' }}</h2>
+
+<mat-dialog-content>
+  <form class="form-container" [formGroup]="questionForm">
+    <mat-form-field appearance="fill" class="full-width">
+      <mat-label>Pregunta</mat-label>
+      <textarea matInput formControlName="ask" required rows="2"></textarea>
+      <mat-error *ngIf="questionForm.get('ask')?.hasError('required')">
+        La pregunta es obligatoria
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" class="full-width">
+      <mat-label>Tipo de pregunta</mat-label>
+      <mat-select formControlName="type_ask" required>
+        <mat-option *ngFor="let type of questionTypes" [value]="type.value">
+          {{type.label}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-checkbox formControlName="required">¿Es requerida?</mat-checkbox>
+
+    <div *ngIf="showOptionsField" class="options-section">
+      <h3>Opciones</h3>
+
+      <div class="option-input">
+        <mat-form-field appearance="fill">
+          <mat-label>Valor</mat-label>
+          <input matInput [(ngModel)]="newOption.value" [ngModelOptions]="{standalone: true}">
+        </mat-form-field>
+
+        <mat-form-field appearance="fill">
+          <mat-label>Texto</mat-label>
+          <input matInput [(ngModel)]="newOption.text" [ngModelOptions]="{standalone: true}">
+        </mat-form-field>
+
+        <button mat-mini-fab color="primary" (click)="addOption()" [disabled]="!newOption.value || !newOption.text">
+          <mat-icon>add</mat-icon>
+        </button>
+      </div>
+
+      <div class="options-list">
+        <div *ngFor="let option of options; let i = index" class="option-item">
+          <span><strong>{{option.value}}</strong>: {{option.text}}</span>
+          <button mat-icon-button color="warn" (click)="removeOption(i)">
+            <mat-icon>delete</mat-icon>
+          </button>
+        </div>
+      </div>
+
+      <input type="hidden" formControlName="options">
+    </div>
+  </form>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <button mat-button (click)="onCancel()">Cancelar</button>
+  <button mat-raised-button color="primary" (click)="onSubmit()" [disabled]="!questionForm.valid">
+    {{ isEditMode ? 'Actualizar' : 'Crear' }}
+  </button>
+</mat-dialog-actions>
