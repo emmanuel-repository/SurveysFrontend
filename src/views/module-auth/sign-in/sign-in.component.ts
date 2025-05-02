@@ -61,7 +61,7 @@ export class SignInComponent {
       password: this.form.value.password
     }
 
-    this._authService.sigUp(formData).subscribe({
+    this._authService.signIn(formData).subscribe({
       next: response => {
        this.storageService.set('token', response.token)
        this.router.navigate(['/admin'])

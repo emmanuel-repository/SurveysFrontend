@@ -3,9 +3,9 @@ export interface SignIn {
   password: string;
 }
 
-export interface SingUp {
+export interface SignUp {
   name: string;
-  last_name: string;
+  lastName: string;
   userName: string;
   password: string;
 }

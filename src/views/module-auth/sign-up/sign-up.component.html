@@ -1,1 +1,67 @@
-<p>sign-up works!</p>
+<div id="root">
+  <div class="background-container">
+    <div class="container-auth-register">
+
+      <form class="form-login" [formGroup]="form" (submit)="signUp()">
+        <h1 class="text-title">Iniciar Sesion</h1>
+
+        @if(!showPanel) {
+          <mat-card appearance="outlined" class="bg-red-100">
+            <mat-card-content>{{message}}</mat-card-content>
+          </mat-card>
+        }
+
+        <mat-form-field appearance="outline">
+          <mat-label>Nombre(s)</mat-label>
+
+          <input matInput placeholder="Nombre" formControlName="name" [errorStateMatcher]="matcher">
+
+          @if(form.get('name')?.hasError('required')) {
+            <mat-error>Este campo es requerido</mat-error>
+          }
+
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Apellidos(s)</mat-label>
+
+          <input matInput placeholder="Apellidos" formControlName="lastName" [errorStateMatcher]="matcher">
+
+          @if(form.get('lastName')?.hasError('required')) {
+            <mat-error>Este campo es requerido</mat-error>
+          }
+
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Correo</mat-label>
+
+          <input matInput placeholder="Email" formControlName="userName" [errorStateMatcher]="matcher">
+
+          @if(form.get('userName')?.hasError('required')) {
+            <mat-error>Este campo es requerido</mat-error>
+          }
+
+          @if(form.get('userName')?.hasError('email') && !form.get('userName')?.hasError('required')) {
+            <mat-error>Ingrese un correo válido</mat-error>
+          }
+
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Contraseña</mat-label>
+
+          <input matInput placeholder="Contraseña" formControlName="password" [errorStateMatcher]="matcher">
+
+          @if(form.get('password')?.hasError('required')) {
+            <mat-error>Este campo es requerido</mat-error>
+          }
+
+        </mat-form-field>
+
+        <button mat-fab extended>Iniciar sesion</button>
+      </form>
+
+    </div>
+  </div>
+</div>
