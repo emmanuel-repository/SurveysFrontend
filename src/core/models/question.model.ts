@@ -7,19 +7,12 @@ export interface Question {
   surveys_id: number;
 }
 
-export interface QuestionCreateRequest {
+export interface QuestionFormRequest {
   ask: string;
   type_ask: string;
   required: number;
   options?: string;
   surveys_id: number;
-}
-
-export interface QuestionUpdateRequest {
-  ask: string;
-  type_ask: string;
-  required: number;
-  options?: string;
 }
 
 export interface QuestionOption {

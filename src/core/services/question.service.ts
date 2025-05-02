@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Validators } from '@angular/forms';
-import { Question, QuestionCreateRequest, QuestionUpdateRequest } from 'core/models/question.model';
+import { Question, QuestionFormRequest } from 'core/models/question.model';
 import { environment } from 'environments/environment';
 import { Observable } from 'rxjs';
 
@@ -31,11 +31,11 @@ export class QuestionService {
     return this.http.get<Question>(`${this.apiUrl}/${id}`);
   }
 
-  createQuestion(questionData: QuestionCreateRequest): Observable<Question> {
+  createQuestion(questionData: QuestionFormRequest): Observable<Question> {
     return this.http.post<Question>(this.apiUrl, questionData);
   }
 
-  updateQuestion(id: number, questionData: QuestionUpdateRequest): Observable<Question> {
+  updateQuestion(id: number, questionData: QuestionFormRequest): Observable<Question> {
     return this.http.put<Question>(`${this.apiUrl}/${id}`, questionData);
   }
 

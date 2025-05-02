@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, Inject, numberAttribute, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatDialogModule, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
@@ -7,7 +7,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
-import { Question, QuestionOption } from 'core/models/question.model';
+import { Question, QuestionFormRequest, QuestionOption } from 'core/models/question.model';
 import { QuestionService } from 'core/services/question.service';
 
 @Component({
@@ -49,9 +49,12 @@ export class QuestionDialogComponent {
   }
 
   ngOnInit(): void {
+
     if (this.data.question) {
+
       this.isEditMode = true;
       const question = this.data.question;
+
       this.questionForm.patchValue({
         ask: question.ask,
         type_ask: question.type_ask,
@@ -62,23 +65,27 @@ export class QuestionDialogComponent {
         this.options = JSON.parse(question.options);
         this.showOptionsField = true;
       }
+
     }
 
     this.questionForm.get('type_ask')?.valueChanges.subscribe(value => {
       this.showOptionsField = ['radio', 'checkbox', 'select'].includes(value);
+
       if (!this.showOptionsField) {
         this.options = [];
         this.questionForm.get('options')?.setValue('');
       }
+
     });
   }
 
   onSubmit(): void {
-    if (this.questionForm.valid) {
+    if (!this.questionForm.valid) return;
 
-      const formValue = this.questionForm.value;
+    const formValue = this.questionForm.value;
 
       const payload = {
+        id: this.data.question?.id || 0,
         ask: formValue.ask,
         type_ask: formValue.type_ask,
         required: formValue.required ? 1 : 0,
@@ -86,22 +93,8 @@ export class QuestionDialogComponent {
         surveys_id: this.data.surveyId
       };
 
-      if (this.isEditMode && this.data.question) {
-
-        this.questionService.updateQuestion(this.data.question.id, payload).subscribe({
-          next: () => this.dialogRef.close(true),
-          error: (err) => console.error('Error updating question:', err)
-        });
-
-      } else {
-
-        this.questionService.createQuestion(payload).subscribe({
-          next: () => this.dialogRef.close(true),
-          error: (err) => console.error('Error creating question:', err)
-        });
-
-      }
-    }
+      if (this.isEditMode && this.data.question) this.edit(this.data.question.id, payload);
+      else this.save(payload);
   }
 
   onCancel(): void {
@@ -110,7 +103,7 @@ export class QuestionDialogComponent {
 
   addOption(): void {
     if (this.newOption.value && this.newOption.text) {
-      this.options.push({...this.newOption});
+      this.options.push({ ...this.newOption });
       this.newOption = { value: '', text: '' };
       this.updateOptionsField();
     }
@@ -123,6 +116,20 @@ export class QuestionDialogComponent {
 
   updateOptionsField(): void {
     this.questionForm.get('options')?.setValue(JSON.stringify(this.options));
+  }
+
+  private save(payload: QuestionFormRequest): void {
+    this.questionService.createQuestion(payload).subscribe({
+      next: () => this.dialogRef.close(true),
+      error: (err) => console.error('Error creating question:', err)
+    });
+  }
+
+  private edit(id: number, payload: QuestionFormRequest): void {
+    this.questionService.updateQuestion(id, payload).subscribe({
+      next: () => this.dialogRef.close(true),
+      error: (err) => console.error('Error updating question:', err)
+    });
   }
 
 }
