@@ -73,4 +73,9 @@ export class SignInComponent {
     })
   }
 
+  redirect(): void {
+    console.log('sadkfadsjflksj')
+    this.router.navigate(['/sign-up'])
+  }
+
 }
