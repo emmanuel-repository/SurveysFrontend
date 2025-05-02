@@ -1,3 +1,7 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 body {
   margin: 0;
   font-family: Roboto, "Helvetica Neue", sans-serif;
@@ -31,7 +35,7 @@ body {
 
   :root {
     --body-font: "Inter", sans-serif;
-    --theme-bg: #1f1d2b;
+    --theme-bg: #1f1d2bba;
     --body-color: #808191;
     --button-bg: #353340;
     --border-color: rgba(128, 129, 145, 0.24);
@@ -83,8 +87,8 @@ body {
   .background-container {
     font-family: var(--body-font);
     color: var(--body-color);
-    background-image: url("https://images.unsplash.com/photo-1445251836269-d158eaa028a6?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&auto=format&fit=crop&w=1951&q=80");
-    background-image: url(https://images.unsplash.com/photo-1520045892732-304bc3ac5d8e?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&auto=format&fit=crop&w=1950&q=80);
+    // background-image: url("https://images.unsplash.com/photo-1445251836269-d158eaa028a6?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&auto=format&fit=crop&w=1951&q=80");
+    // background-image: url(https://images.unsplash.com/photo-1520045892732-304bc3ac5d8e?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&auto=format&fit=crop&w=1950&q=80);
     background-position: center;
     background-size: cover;
     background-repeat: no-repeat;
@@ -136,7 +140,7 @@ body {
   .container-auth {
     all: unset;
     /* Resetea todos los estilos heredados, si es necesario */
-    background-color: var(--theme-bg);
+    background-color: white;
     max-width: 500px !important;
     max-height: 500px;
     height: 95vh;
@@ -148,6 +152,7 @@ body {
     font-weight: 500;
     box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
     position: relative;
+    justify-content: center; /* Centra horizontalmente */
   }
 
   .sidebar {
@@ -1286,5 +1291,15 @@ body {
     border-radius: 10px;
   }
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+  .form-login {
+    width: 100%;
+    max-width: 400px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    padding-top: 40px;
+  }
+
+  .text-title {
+    text-align: center;
+  }

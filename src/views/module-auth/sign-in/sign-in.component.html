@@ -1,8 +1,41 @@
-
 <div id="root">
   <div class="background-container">
     <div class="container-auth">
 
+      <form class="form-login" [formGroup]="form" (submit)="singIn()">
+
+        <h1 class="text-title">Iniciar Sesion</h1>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Correo</mat-label>
+
+          <input matInput placeholder="Email" formControlName="userName" [errorStateMatcher]="matcher">
+
+          @if(form.get('userName')?.hasError('required')) {
+            <mat-error>Este campo es requerido</mat-error>
+          }
+
+          @if(form.get('userName')?.hasError('email') && !form.get('userName')?.hasError('required')) {
+            <mat-error>Ingrese un correo válido</mat-error>
+          }
+
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Contraseña</mat-label>
+
+          <input matInput placeholder="Contraseña" formControlName="password" [errorStateMatcher]="matcher">
+
+          @if(form.get('password')?.hasError('required')) {
+            <mat-error>Este campo es requerido</mat-error>
+          }
+
+        </mat-form-field>
+
+        <button mat-fab extended>Iniciar sesion</button>
+
+      </form>
     </div>
   </div>
 </div>
+
