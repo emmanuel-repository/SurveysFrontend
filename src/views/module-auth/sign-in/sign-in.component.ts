@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, ViewEncapsulation } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, ViewEncapsulation } from '@angular/core';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import {MatCardModule} from '@angular/material/card';
@@ -10,7 +10,7 @@ import { CommonModule } from '@angular/common';
 import { MyErrorStateMatcher } from 'core/helpers/my-error-state-matcher';
 import { AuthService } from 'core/services/auth.service';
 import { SignIn } from 'core/models/auth.model';
-import { response } from 'express';
+import { BrowserStorageService } from 'core/services/browser-storage.service';
 
 @Component({
   selector: 'app-sign-in',
@@ -38,6 +38,8 @@ export class SignInComponent {
   submitted: boolean = false;
   matcher: any = new MyErrorStateMatcher
 
+  private storageService = inject(BrowserStorageService);
+
   constructor(private _formBuild: FormBuilder, private _authService: AuthService ) {}
 
   ngOnInit(): void {
@@ -57,7 +59,7 @@ export class SignInComponent {
 
     this._authService.sigUp(formData).subscribe({
       next: response => {
-        console.log(response)
+       this.storageService.set('token', response.token)
       },
       error: error => {
         console.log(error)

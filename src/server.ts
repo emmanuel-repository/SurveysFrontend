@@ -60,6 +60,15 @@ if (isMainModule(import.meta.url)) {
   });
 }
 
+// global['sessionStorage'] = {
+//   getItem: () => null,
+//   setItem: () => {},
+//   removeItem: () => {},
+//   clear: () => {},
+//   length: 0,
+//   key: () => null
+// } as Storage;
+
 /**
  * Request handler used by the Angular CLI (for dev-server and during build) or Firebase Cloud Functions.
  */
