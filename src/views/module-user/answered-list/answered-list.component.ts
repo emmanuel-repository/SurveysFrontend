@@ -1,4 +1,4 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, inject, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
@@ -8,6 +8,7 @@ import { MatGridListModule } from '@angular/material/grid-list';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { RouterModule } from '@angular/router';
+import { JwtService } from 'core/services/jwt.service';
 
 @Component({
   selector: 'app-answered',
@@ -30,10 +31,14 @@ export class AnsweredListComponent {
 
   displayedColumns: string[] = ['id', 'name', 'description', 'date_register', 'actions'];
   dataSource = new MatTableDataSource<Survey>();
+  userName!: string | null;
+
+  private jwtService = inject(JwtService);
 
   constructor(private surveyService: SurveyService, private dialog: MatDialog) { }
 
   ngOnInit(): void {
+    this.userName = this.jwtService.getUserName();
     this.getSurveys();
   }
 

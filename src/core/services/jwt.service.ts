@@ -74,6 +74,18 @@ export class JwtService {
     }
   }
 
+  getUserName(): string | null {
+    const token = this.getToken();
+    if (!token) return null;
+
+    try {
+      const decoded: any = jwtDecode(token);
+      return decoded.UserName; // Asume que el token JWT tiene un campo 'role'
+    } catch (error) {
+      return null;
+    }
+  }
+
   // Verificar si el usuario es admin
   isAdmin(): boolean {
     return this.getUserRole() === 'ADMIN';

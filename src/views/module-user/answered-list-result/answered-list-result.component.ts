@@ -5,9 +5,12 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { RouterModule } from '@angular/router';
-import { Answered } from 'core/models/answered.model';
+import { Answered, AnsweredSurvey } from 'core/models/answered.model';
 import { AnsweredService } from 'core/services/answered.service';
 import { JwtService } from 'core/services/jwt.service';
+import { AnsweredResultDialogComponent } from './answered-result-dialog/answered-result-dialog.component';
+import { MatDialog } from '@angular/material/dialog';
+import { AnsweredResultsComponent } from '../answered-results/answered-results.component';
 
 @Component({
   selector: 'app-answered-list-result',
@@ -31,7 +34,7 @@ export class AnsweredListResultComponent {
 
   private jwtService = inject(JwtService);
 
-  constructor(private answeredService: AnsweredService){}
+  constructor(private answeredService: AnsweredService, private dialog: MatDialog){}
 
   ngOnInit(): void {
     this.loadAnswered();
@@ -53,6 +56,13 @@ export class AnsweredListResultComponent {
 
   formatDate(dateString: string): string {
     return new Date(dateString).toLocaleDateString();
+  }
+
+  openDialog(answered: AnsweredSurvey): void {
+    this.dialog.open(AnsweredResultDialogComponent, {
+      width: '600px',
+      data: answered
+    });
   }
 
 }

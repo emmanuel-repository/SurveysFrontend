@@ -1,0 +1,21 @@
+<nav class="main-nav">
+  <ul class="nav-group nav-left">
+
+    @if(userRol == "USER") {
+      <li><a [routerLink]="['/user/answered-list']"> Asignadas Encuestas</a></li>
+      <li><a [routerLink]="['/user/answered-list-result']">Mis Resultados</a></li>
+    }
+
+    @if(userRol == "ADMIN") {
+      <li><a [routerLink]="['/admin/config-surveys']"> Gestion de Encuestas</a></li>
+      <li><a [routerLink]="['/admin/config-admins']"> Gestion de Aministradores</a></li>
+    }
+
+  </ul>
+
+  <ul class="nav-group nav-right">
+    <li><a href="#"><i class="fas fa-download"></i> Cerrar sesion</a></li>
+  </ul>
+
+  <button class="mobile-menu-btn">☰</button>
+</nav>

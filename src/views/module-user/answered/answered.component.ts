@@ -37,7 +37,6 @@ export class AnsweredComponent implements OnInit {
   survey!: Survey;
   formData: { [key: string]: string } = {};
 
-
   private jwtService = inject(JwtService);
 
   constructor(private route: ActivatedRoute, private questionService: QuestionService, private answeredService: AnsweredService,
