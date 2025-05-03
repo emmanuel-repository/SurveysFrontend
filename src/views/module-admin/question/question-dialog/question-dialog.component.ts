@@ -39,8 +39,8 @@ export class QuestionDialogComponent {
   questionTypes = [
     { value: 'text', label: 'Texto' },
     { value: 'radio', label: 'Opción única' },
-    { value: 'checkbox', label: 'Múltiple selección' },
-    { value: 'select', label: 'Lista desplegable' }
+    // { value: 'checkbox', label: 'Múltiple selección' },
+    // { value: 'select', label: 'Lista desplegable' }
   ];
 
   constructor(private fb: FormBuilder, private questionService: QuestionService, private dialogRef: MatDialogRef<QuestionDialogComponent>,
