@@ -5,6 +5,7 @@ export interface Question {
   required: number;
   options?: string; // JSON string
   surveys_id: number;
+  parsedOptions?: QuestionOption[];
 }
 
 export interface QuestionFormRequest {

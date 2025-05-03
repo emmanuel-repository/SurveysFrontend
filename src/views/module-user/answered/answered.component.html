@@ -1,1 +1,40 @@
-<p>answered works!</p>
+@if(questions.length === 0) {
+<div>Cargando preguntas...</div>
+}
+
+@if(questions.length > 0){
+<form class="form-container" (ngSubmit)="onSubmit()">
+  @for (question of questions; track question.id) {
+  <!-- Campo de texto -->
+  @if (question.type_ask === 'text') {
+  <mat-form-field appearance="outline" class="full-width">
+    <mat-label>{{ question.ask }}</mat-label>
+    <input matInput [(ngModel)]="formData[question.ask]" [name]="'question-' + question.id"
+      [required]="question.required === 1">
+  </mat-form-field>
+  }
+
+  <!-- Campo de selección -->
+  @if (question.type_ask === 'select') {
+  <mat-form-field appearance="outline" class="full-width">
+
+    <mat-label>{{ question.ask }}</mat-label>
+
+    <mat-select  [(ngModel)]="formData[question.ask]" [name]="'question-' + question.id"
+      [required]="question.required === 1">
+
+      <mat-option value="">Seleccione una opción</mat-option>
+
+      @for (option of question.parsedOptions; track option.value) {
+      <mat-option [value]="option.value">{{ option.text }}</mat-option>
+      }
+
+    </mat-select>
+
+  </mat-form-field>
+  }
+  }
+
+  <button mat-raised-button color="primary" type="submit" [disabled]="!isFormValid()">Enviar</button>
+</form>
+}
