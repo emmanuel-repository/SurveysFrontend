@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
@@ -9,6 +9,11 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatButtonModule } from '@angular/material/button';
 import { Question, QuestionOption } from 'core/models/question.model';
 import { QuestionService } from 'core/services/question.service';
+import { Answered } from 'core/models/answered.model';
+import { JwtService } from 'core/services/jwt.service';
+import { AnsweredService } from 'core/services/answered.service';
+import { SurveyService } from 'core/services/survey.service';
+import { Survey } from 'core/models/survey.model';
 
 @Component({
   standalone: true,
@@ -24,19 +29,34 @@ import { QuestionService } from 'core/services/question.service';
     MatButtonModule
   ]
 })
+
 export class AnsweredComponent implements OnInit {
+
   surveyId!: number;
   questions: Question[] = [];
+  survey!: Survey;
   formData: { [key: string]: string } = {};
 
-  constructor(
-    private route: ActivatedRoute,
-    private questionService: QuestionService
-  ) {}
+
+  private jwtService = inject(JwtService);
+
+  constructor(private route: ActivatedRoute, private questionService: QuestionService, private answeredService: AnsweredService,
+    private surveyService: SurveyService) { }
 
   ngOnInit(): void {
     this.surveyId = +this.route.snapshot.paramMap.get('id')!;
     this.loadQuestions();
+    this.getSurveys();
+  }
+
+
+  getSurveys(): void {
+    this.surveyService.getSurveyById(this.surveyId).subscribe({
+      next: response => {
+        this.survey = response;
+      },
+      error: error => console.error('Error', error.message)
+    });
   }
 
   loadQuestions(): void {
@@ -63,7 +83,19 @@ export class AnsweredComponent implements OnInit {
   }
 
   onSubmit(): void {
-    console.log('Formulario enviado:', this.formData);
-    // Aquí puedes enviar los datos al backend
+
+    const answerd: Answered = {
+      date_start: new Date().toISOString(),
+      date_end: new Date().toISOString(),
+      data_surveys: JSON.stringify(this.formData),  // ← Aquí van tus respuestas con `ask` como clave
+      user_id: Number(this.jwtService.getUserId()),
+      survey_id: this.surveyId
+    };
+
+    this.answeredService.createSurvey(answerd).subscribe({
+      next: res => console.log('Enviado', res),
+      error: err => console.error('Error', err.message)
+    })
+
   }
 }
