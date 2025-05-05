@@ -30,7 +30,7 @@
         <mat-form-field appearance="outline">
           <mat-label>Contraseña</mat-label>
 
-          <input matInput placeholder="Contraseña" formControlName="password" [errorStateMatcher]="matcher">
+          <input matInput placeholder="Contraseña" type="password" formControlName="password" [errorStateMatcher]="matcher">
 
           @if(form.get('password')?.hasError('required')) {
             <mat-error>Este campo es requerido</mat-error>

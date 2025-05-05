@@ -7,6 +7,7 @@ import { Component } from '@angular/core';
   styleUrl: './answered-results.component.scss',
   imports: [],
 })
+
 export class AnsweredResultsComponent {
 
 }
